@@ -71,6 +71,11 @@ if [ -d "$SCRIPT_DIR" ]; then
     find "$AGH_DIR/scripts" "$ADGPATH" -type f -name "*.sh" -exec chattr -i {} \;
 fi
 
+# 旧版本完整模式可能已创建 iptables 规则；标记待清理。
+# 新版本 service.sh 在 DNS-only 启动时会移除此标记（重启后旧规则已随内核清除）。
+[ -f "$AGH_DIR/scripts/iptables.sh" ] && : > "$AGH_DIR/iptables.enabled"
+
+
 # 清除旧模块残留
 if [ -d "$AGH_DIR/ifw" ] || [ -d "$AGH_DIR/scripts" ] || [ -d "$BIN_DIR/agh_pid" ] || [ -d "$BIN_DIR/data/filters" ]; then
   i18n_print "- Cleaning up old module residues" "- 正在清理旧模块残留"

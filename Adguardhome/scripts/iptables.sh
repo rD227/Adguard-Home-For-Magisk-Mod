@@ -1,10 +1,25 @@
 #!/system/bin/sh
 AGH_DIR="/data/adb/agh"
 . "$AGH_DIR/scripts/config.prop"
+. "$AGH_DIR/scripts/agh-mode.sh"
 MAIN_LOG="$AGH_DIR/agh.log"
 
 # 防止重复启动
 [ $(pgrep -f "$0" | wc -l) -gt 1 ] && exit
+
+# DNS-only 模式：不创建/不维护任何 iptables/ip6tables 规则
+if is_dns_only; then
+    {
+        case "$(getprop persist.sys.locale)" in
+            zh*) echo "$(date '+%F %T') DNS-only 模式：iptables.sh 已跳过，不修改 iptables/ip6tables。" ;;
+            *)   echo "$(date '+%F %T') DNS-only mode: iptables.sh skipped, iptables/ip6tables untouched." ;;
+        esac
+    } >> "$MAIN_LOG"
+    exit 0
+fi
+
+# 标记完整模式可能创建 iptables 规则，供卸载脚本判断是否需要清理
+: > "$AGH_DIR/iptables.enabled"
 
 # 检测Adguardhome是否存活
 agh_running() {

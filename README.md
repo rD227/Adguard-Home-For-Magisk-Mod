@@ -127,6 +127,16 @@ graph TD
 - 部分软件的看广告领金币无法正常领取，如无法使用这并非误杀
 - 模块不可以与同类模块同时使用，更详细的请看教程那一栏
 - 模块无法拦截广告与内容为同一域名的，比如QQ、微信、支付宝等部分广告
+
+## 🔧 DNS-only 模式（默认）
+- 默认开启：仅运行 AdGuard Home 进程与 ProxyConfig.sh 本地 DNS 注入，不启动/不维护 iptables.sh、NoAdsService.sh、ModuleMOD.sh，不做任何 iptables/ip6tables 改写。
+- YumeBox 等 TUN 类代理继续使用自身 TUN 路由，53/853 端口不会被本模块劫持。
+- 管理端口固定为 `http://127.0.0.1:31423`，打开 `http://127.0.0.1:31423/#dns` 即可直接修改模式。
+- 切换方式：在 AdGuard Home 的 “DNS 设置 -> 不允许的域名” 中：
+  - 保留 `dns-only` = DNS-only 模式（默认）
+  - 删除 `dns-only` = 完整模式（启动 iptables.sh / NoAdsService.sh / ModuleMOD.sh）
+- 修改后需重启设备生效。
+
 ## 💡 模块相比于其他的方案有哪些优点？
 ### 相比于非AdguardHome DNS实现方案有哪些优点？
 1. AdguardHome经过多年维护都还有高危CVE漏洞，其他竞品方案只会更差（实力不如Adguard公司技术深厚）

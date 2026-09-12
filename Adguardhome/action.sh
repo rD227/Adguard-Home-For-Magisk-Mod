@@ -7,7 +7,7 @@ echo "等待 1 秒..."
 echo "刷新页面以查看更改。"
 sleep 1
 
-# 获取动态端口
+# 获取管理端口（DNS-only 默认固定为 31423）
 PORT=$(sed -n 's/^[[:space:]]*address: 127\.0\.0\.1:\([0-9]*\).*/\1/p' "$YAML_FILE")
 
 # 自动跳转到浏览器并打开 Web UI

@@ -79,6 +79,11 @@ while :; do
     IFS='|' read -r config_file restart_cmd <<< "${PROXY_CONFIGS[$i]}"
     need_restart=0
     for config_file in $config_file; do
+        # YumeBox 的配置位于应用私有目录（com.github.yumeyucca.yumebox），
+        # 其 TUN 路由与 DNS 劫持由 YumeBox 自身管理，这里显式跳过，绝不修改。
+        case "$config_file" in
+            *com.github.yumeyucca.yumebox*) continue ;;
+        esac
         [ ! -f "$config_file" ] && continue
         [ "$1" = "--clean" ] && clean_config "$config_file" && continue
         process_config "$config_file"

@@ -14,6 +14,16 @@
 - May prevent reward systems based on watching ads (not a false positive)
 - Do **not** use with other similar ad-blocking modules
 - Cannot block ads served from the same domain as content (e.g., Twitch, YouTube, Instagram)
+
+## 🔧 DNS-only Mode (default)
+- Enabled by default: only the AdGuard Home process and ProxyConfig.sh local DNS injection run. iptables.sh / NoAdsService.sh / ModuleMOD.sh are not started or maintained, and no iptables/ip6tables changes are made.
+- TUN-based proxies such as YumeBox keep their own TUN routing; ports 53/853 are not hijacked by this module.
+- The admin port is fixed at `http://127.0.0.1:31423`; open `http://127.0.0.1:31423/#dns` to change the mode directly.
+- How to switch: go to AdGuard Home “DNS settings -> Blocked domains”:
+  - Keep `dns-only` = DNS-only mode (default)
+  - Remove `dns-only` = full mode (starts iptables.sh / NoAdsService.sh / ModuleMOD.sh)
+- Reboot after changing for it to take effect.
+
 ## 💡 Advantages Over Other Solutions
 ### What are the advantages compared to non-AdguardHome DNS implementation solutions?
 1. AdguardHome despite years of maintenance still has high-risk CVE vulnerabilities; other competing solutions would only be worse (as their technical strength is not as profound as that of Adguard company)

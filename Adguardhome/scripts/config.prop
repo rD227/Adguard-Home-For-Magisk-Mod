@@ -1,4 +1,7 @@
 # 注：以下修改后必须重启生效
+# 运行模式：在 AdGuard Home Web UI 的 “DNS 设置 -> 不允许的域名” 中修改。
+# 保留 “dns-only” = DNS-only 模式（仅运行 AGH 与 ProxyConfig.sh，不修改 iptables/ip6tables）。
+# 删除 “dns-only” = 完整模式（启动 iptables.sh / NoAdsService.sh / ModuleMOD.sh）。
 # AdGuardHome DNS 重定向端口
 redir_port=5591
 

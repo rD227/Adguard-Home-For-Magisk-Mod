@@ -1,8 +1,13 @@
 #!/system/bin/sh
 AGH_DIR="/data/adb/agh"
 
+. "$AGH_DIR/scripts/agh-mode.sh"
+
 # 防止重复启动
 [ $(pgrep -f "$0" | wc -l) -gt 1 ] && exit
+
+# DNS-only 模式：不维护应用广告目录锁
+is_dns_only && exit 0
 
 # 定义变量并积累数组
 block_ad(){ [ -e "$1" ] && e="$e $1"; }

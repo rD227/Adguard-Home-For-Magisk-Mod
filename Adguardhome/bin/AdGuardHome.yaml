@@ -9,7 +9,7 @@ http:
       - GET /dns-query/{ClientID}
       - POST /dns-query/{ClientID}
     insecure_enabled: false
-  address: 127.0.0.1:40251
+  address: 127.0.0.1:31423
   session_ttl: 30d
 users:
   - name: root
@@ -50,6 +50,7 @@ dns:
     - version.bind
     - id.server
     - hostname.bind
+    - dns-only
   trusted_proxies:
     - 127.0.0.0/8
     - ::1/128
